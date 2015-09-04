@@ -43,13 +43,23 @@ if __name__ == "__main__":
 	#, default="/tmp"
 	, default="/vagrant/img"
         ,help="output path")
+    parser.add_argument("-u","--url", required=False
+	,default=0, type=int
+        ,help="urlno Stop high=0,Stop depreciation=1,Price rise=2,Fall in prices=3")
     args = parser.parse_args()
 
-    # STOP高銘柄
-    serch_url = "http://info.finance.yahoo.co.jp/ranking/?kd=27&mk=1&tm=d&vl=a"
-    # 値上がり上位
-    #serch_url = "http://info.finance.yahoo.co.jp/ranking/?kd=1&mk=1&tm=d&vl=a"
-    htmldata = urllib2.urlopen(serch_url)
+    # 銘柄コード収集URL
+    serch_url = [
+        # STOP高銘柄 Stop high
+        "http://info.finance.yahoo.co.jp/ranking/?kd=27&mk=1&tm=d&vl=a",
+        # STOP安銘柄 Stop depreciation
+        "http://info.finance.yahoo.co.jp/ranking/?kd=28&mk=1&tm=d&vl=a",
+        # 値上がり上位 Price rise
+        "http://info.finance.yahoo.co.jp/ranking/?kd=1&mk=1&tm=d&vl=a",
+        # 値下がり上位 Fall in prices
+        "http://info.finance.yahoo.co.jp/ranking/?kd=2&mk=1&tm=d&vl=a"
+    ]
+    htmldata = urllib2.urlopen(serch_url[args.url])
 
     print('現在銘柄コードを取得中です...')
 
