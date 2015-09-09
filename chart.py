@@ -45,7 +45,8 @@ if __name__ == "__main__":
         ,help="output path")
     parser.add_argument("-u","--url", required=False
 	,default=0, type=int
-        ,help="urlno Stop high=0,Stop depreciation=1,Price rise=2,Fall in prices=3")
+        ,help=
+	"urlno Stop high=0,Stop depreciation=1,Price rise=2,Fall in prices=3,Golden=4,Dead=5")
     args = parser.parse_args()
 
     # 銘柄コード収集URL
@@ -57,7 +58,11 @@ if __name__ == "__main__":
         # 値上がり上位 Price rise
         "http://info.finance.yahoo.co.jp/ranking/?kd=1&mk=1&tm=d&vl=a",
         # 値下がり上位 Fall in prices
-        "http://info.finance.yahoo.co.jp/ranking/?kd=2&mk=1&tm=d&vl=a"
+        "http://info.finance.yahoo.co.jp/ranking/?kd=2&mk=1&tm=d&vl=a",
+	# Golden cross
+	"http://info.finance.yahoo.co.jp/ranking/?kd=37&mk=1&tm=d&vl=a",
+        # Dead cross
+	"http://info.finance.yahoo.co.jp/ranking/?kd=38&mk=1&tm=d&vl=a"
     ]
     htmldata = urllib2.urlopen(serch_url[args.url])
 
